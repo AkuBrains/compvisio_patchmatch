@@ -115,14 +115,3 @@ def NNS(img, ref, p_size, itr):
                     random_search(f, a, dist, img_padding, ref, p_size)
         print("iteration: %d"%(itr))
     return f
-
-if __name__ == "__main__":
-    img = np.array(Image.open("./cup_a.jpg"))
-    ref = np.array(Image.open("./cup_b.jpg"))
-    p_size = 3
-    itr = 5
-    start = time.time()
-    f = NNS(img, ref, p_size, itr)
-    end = time.time()
-    print(end - start)
-    reconstruction(f, img, ref)
