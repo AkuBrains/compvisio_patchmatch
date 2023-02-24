@@ -95,6 +95,7 @@ class PatchMatchTracking:
         self.n_iter = n_iter
         self.threshold = threshold
         self.nb_core = nb_core
+        self._init_multithreading()
 
     def _init_multithreading(self):
         set_num_threads(self.nb_core)
