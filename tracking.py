@@ -99,7 +99,9 @@ class PatchMatchTracking:
     def track(self, imgs, mask):
         with ProgressBar(total=len(imgs)-1) as progress:
             return self._track_core(imgs, mask, progress)
-
+    def track_with_step(self, imgs, mask, step = 1):
+        with ProgressBar(total=len(imgs)-1) as progress:
+            return self._track_core_with_step(imgs, mask, progress, step)
     def get_monte_carlo_res(self):
         return self._temp_mc_masks
 
@@ -118,6 +120,34 @@ class PatchMatchTracking:
         self._temp_esti_masks_smooth = [masks[0]]
         for mask in masks[1:]:
             self._temp_esti_masks_smooth.append(smooth(mask, kernel=kernel_size))
+        return self._temp_esti_masks_smooth
+    
+    def _track_core_with_step(self, imgs, mask, bar,step):
+        self._temp_mc_masks = []
+        self._temp_esti_masks = [mask]
+        self._temp_esti_masks_smooth = [mask]
+        ref = imgs[0]
+        m, n, _ = ref.shape
+        for index,img in enumerate(imgs[1:]):
+            print(index)
+            if index % step == 0 :
+                ref = imgs[index]
+                mask = self._temp_esti_masks_smooth[-1]
+            if self.monte_carlo:
+                nnf = monte_carlo(img, ref, n_iter=self.n_iter, p_size=self.p_size, pm_iter=self.pm_iter, bar=False)
+                res = np.zeros((m, n, self.n_iter))
+                for k in range(self.n_iter):
+                    res[:, :, k] = estimate_mask(mask, nnf[k, :, :, :])
+                self._temp_mc_masks.append(res)
+                esti_mask = thresholding(res, self.threshold)
+            else:
+                nnf = NNS(img, ref, self.p_size, self.pm_iter)
+                esti_mask = estimate_mask(mask, nnf)
+            self._temp_esti_masks.append(esti_mask)
+            if self.smooth:
+                esti_mask = smooth(esti_mask, self.sm_kernel)
+            self._temp_esti_masks_smooth.append(esti_mask)
+            bar.update(1)
         return self._temp_esti_masks_smooth
 
 
