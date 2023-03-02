@@ -9,8 +9,3 @@ def estimate_mask(mask, f):
             if mask[i, j] != 0:
                 res[f[i,j][0], f[i,j][1]] = m
     return res
-
-
-
-
-
