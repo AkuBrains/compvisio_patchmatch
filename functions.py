@@ -9,6 +9,14 @@ config.NUMBA_NUM_THREADS = 3
 
 
 def estimate_mask(mask, f):
+    """
+    Predict current mask using reference mask, and optical flow from current image to reference image
+    Arguments:
+        mask (ndarray): binary reference mask image.
+        f (ndarray)   : array containing the optical flow
+    Returns:
+        res (ndarray) : Current predicted mask
+    """
     res = np.zeros(mask.shape)
     m = np.max(mask)
 
@@ -22,7 +30,17 @@ def estimate_mask(mask, f):
 
 @njit(nogil=True, parallel=True)
 def monte_carlo_core(img, ref, n_iter, temp, p_size=7, pm_iter=10, bar=None):
+    """
+    Compute several optical flow from the current image to reference image
+    Arguments:
+        img (ndarray)   : current image
+        ref (ndarray)   : reference image
+        n_iter (int)    : number of iterations
+    Returns
+        temp (ndarray)  : several optical flows
+    """
     for k in prange(n_iter):
+        #Compute optical flow at each iteration
         temp[k, :, :, :] = NNF(img, ref, p_size, pm_iter)
         if bar is not None:
             bar.update(1)
@@ -30,6 +48,9 @@ def monte_carlo_core(img, ref, n_iter, temp, p_size=7, pm_iter=10, bar=None):
 
 
 def monte_carlo(img, ref, n_iter=5, p_size=9, pm_iter=10, bar=False):
+    """
+    Same function as monte_carlo_core but with a visual progression bar
+    """
     k, l, _ = img.shape
     temp = np.empty((n_iter, k, l, 2), dtype=np.int32)
     if bar:
@@ -39,6 +60,14 @@ def monte_carlo(img, ref, n_iter=5, p_size=9, pm_iter=10, bar=False):
 
 
 def dice_assessment(groundtruth, estimated, label=255):
+    """
+    Computes dice score =  2|X.Y| / (|X| + |Y|)
+    Arguments:
+        groundtruth (ndarray): binary grountruth mask image.
+        estimated(ndarray)   : binary predicted mask image.
+    Returns:
+        DICE (float): dice score between 0 and 100
+    """
     A = groundtruth == label
     B = estimated == label
     TP = len(np.nonzero(A*B)[0])
@@ -164,6 +193,14 @@ def seg2bmap(seg,width=None,height=None):
     return bmap
 
 def centroid_assessment(groundtruth,estimated):
+    """
+    Computes distances between centroids of the groundtruth and estimated binary mask
+    Arguments:
+        groundtruth (ndarray)   : binary groundtruth mask
+        estimated (ndarray)     : binary estimated mask
+    Returns:
+        (float)                 : distances between centroids
+    """
     a = regionprops(groundtruth)
     b = regionprops(estimated)
     return np.linalg.norm(np.array(a[0].centroid)-np.array(b[0].centroid))
