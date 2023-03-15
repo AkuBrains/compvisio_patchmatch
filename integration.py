@@ -15,7 +15,7 @@ def get_masks_direct(img_ref, mask_ref, imgs, n_iter_mc, p_size, n_iter_pm, thr=
             estimated_masks[i,...] += mask_i
         estimated_masks[i] /= n_iter_mc
         estimated_masks[i][estimated_masks[i] < thr] = 0
-    return estimated_masks
+    return estimated_masks.astype(np.int32)
 
 def get_masks_sequential(img_ref, mask_ref, imgs, n_iter_mc, p_size, n_iter_pm, thr=100):
     n, m = img_ref.shape[0], img_ref.shape[1] # Dimension of the images/masks
@@ -31,7 +31,7 @@ def get_masks_sequential(img_ref, mask_ref, imgs, n_iter_mc, p_size, n_iter_pm, 
         estimated_masks[i][estimated_masks[i] < thr] = 0
         img_ref = np.copy(imgs[i])
         mask_ref = np.copy(estimated_masks[i])
-    return estimated_masks
+    return estimated_masks.astype(np.int32)
 
 def get_masks_hybrid(img_ref, mask_ref, imgs, n_iter_mc, p_size, n_iter_pm, step = 5, thr=100):
     n, m = img_ref.shape[0], img_ref.shape[1] # Dimension of the images/masks
@@ -45,9 +45,8 @@ def get_masks_hybrid(img_ref, mask_ref, imgs, n_iter_mc, p_size, n_iter_pm, step
             estimated_masks[i,...] += mask_i
         estimated_masks[i] /= n_iter_mc
         estimated_masks[i][estimated_masks[i] < thr] = 0
-
         if i%step==0 and i!=0:
             img_ref = np.copy(imgs[i])
             mask_ref = np.copy(estimated_masks[i])
 
-    return estimated_masks
+    return estimated_masks.astype(np.int32)
