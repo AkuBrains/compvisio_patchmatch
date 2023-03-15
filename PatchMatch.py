@@ -91,7 +91,7 @@ def propagation(f, a, dist, A_padding, B, p_size, is_odd):
 
 
 @njit(nogil=True)
-def random_search(f, a, dist, A_padding, B, p_size, alpha=0.5):
+def random_search(f, a, dist, A_padding, B, p_size, alpha=0.4):
     x = a[0]
     y = a[1]
     B_h, B_w, _ = B.shape
