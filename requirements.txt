@@ -1,2 +1,9 @@
 numpy
+<<<<<<< HEAD
 matplotlib
+=======
+matplotlib
+numba
+scikit-images
+numba_progress
+>>>>>>> 1c761d9 (Tests update)

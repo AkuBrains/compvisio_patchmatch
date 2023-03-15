@@ -119,7 +119,7 @@ def random_search(f, a, dist, A_padding, B, p_size, alpha=0.5):
 
 
 @njit(nogil=True)
-def NNS(img, ref, p_size, itr):
+def NNF(img, ref, p_size, itr):
     A_h, A_w, _ = img.shape
     f, dist, img_padding = initialization(img, ref, p_size)
     for itr in range(1, itr + 1):
