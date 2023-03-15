@@ -2,7 +2,7 @@ from numba import njit, prange, set_num_threads, config
 from numba_progress import ProgressBar
 import numpy as np
 from PatchMatch import NNF
-
+from skimage.measure import regionprops
 
 set_num_threads(3)
 config.NUMBA_NUM_THREADS = 3
