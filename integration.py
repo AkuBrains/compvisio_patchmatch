@@ -10,7 +10,11 @@ def get_masks_direct(img_ref, mask_ref, imgs, n_iter_mc, p_size, n_iter_pm, thr=
     for i in range(n_images):
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         print("Mask estimation for ",i)
+=======
+        print(f'Mask estimation image {i+2}')
+>>>>>>> 782d870 (correct merge problems)
         f_monte_carlo = monte_carlo(imgs[i], img_ref, n_iter=n_iter_mc, p_size=p_size, pm_iter=n_iter_pm)
         for j in range(n_iter_mc):
             mask_i = estimate_mask(mask_ref, f_monte_carlo[j])
@@ -39,6 +43,7 @@ def get_masks_sequential(img_ref, mask_ref, imgs, n_iter_mc, p_size, n_iter_pm, 
     for i in range(n_images):
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         print("Mask estimation for ",i)
 =======
         print(f"Mask estimation for {name+'-%0*d.bmp'%(3, i+2)}")
@@ -46,6 +51,9 @@ def get_masks_sequential(img_ref, mask_ref, imgs, n_iter_mc, p_size, n_iter_pm, 
 =======
         print(f'Mask estimation image {i+2}')
 >>>>>>> 186755d (Update integration)
+=======
+        print(f'Mask estimation image {i+2}')
+>>>>>>> 782d870 (correct merge problems)
         f_monte_carlo = monte_carlo(imgs[i], img_ref, n_iter=n_iter_mc, p_size=p_size, pm_iter=n_iter_pm)
         for j in range(n_iter_mc):
             mask_i = estimate_mask(mask_ref, f_monte_carlo[j,...])
@@ -67,6 +75,7 @@ def get_masks_hybrid(img_ref, mask_ref, imgs, n_iter_mc, p_size, n_iter_pm, step
     for i in range(n_images):
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         print("Mask estimation for ",i)
 =======
         print(f"Mask estimation for {name+'-%0*d.bmp'%(3, i+2)}")
@@ -74,6 +83,9 @@ def get_masks_hybrid(img_ref, mask_ref, imgs, n_iter_mc, p_size, n_iter_pm, step
 =======
         print(f'Mask estimation image {i+2}')
 >>>>>>> 186755d (Update integration)
+=======
+        print(f'Mask estimation image {i+2}')
+>>>>>>> 782d870 (correct merge problems)
         f_monte_carlo = monte_carlo(imgs[i], img_ref, n_iter=n_iter_mc, p_size=p_size, pm_iter=n_iter_pm)
         for j in range(n_iter_mc):
             mask_i = estimate_mask(mask_ref, f_monte_carlo[j,...])
