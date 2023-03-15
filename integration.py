@@ -8,11 +8,7 @@ def get_masks_direct(img_ref, mask_ref, imgs, n_iter_mc, p_size, n_iter_pm, thr=
     n_images = len(imgs)
     estimated_masks = np.zeros((n_images, n, m))
     for i in range(n_images):
-<<<<<<< HEAD
-        print("Mask estimation for ",i)
-=======
         print(f'Mask estimation image {i+2}')
->>>>>>> a9dc941d7e26ef332782b89203f4a0d81bc55733
         f_monte_carlo = monte_carlo(imgs[i], img_ref, n_iter=n_iter_mc, p_size=p_size, pm_iter=n_iter_pm)
         for j in range(n_iter_mc):
             mask_i = estimate_mask(mask_ref, f_monte_carlo[j])
@@ -26,11 +22,7 @@ def get_masks_sequential(img_ref, mask_ref, imgs, n_iter_mc, p_size, n_iter_pm, 
     n_images = len(imgs)
     estimated_masks = np.zeros((n_images, n, m))
     for i in range(n_images):
-<<<<<<< HEAD
-        print("Mask estimation for ",i)
-=======
         print(f'Mask estimation image {i+2}')
->>>>>>> a9dc941d7e26ef332782b89203f4a0d81bc55733
         f_monte_carlo = monte_carlo(imgs[i], img_ref, n_iter=n_iter_mc, p_size=p_size, pm_iter=n_iter_pm)
         for j in range(n_iter_mc):
             mask_i = estimate_mask(mask_ref, f_monte_carlo[j,...])
@@ -46,11 +38,7 @@ def get_masks_hybrid(img_ref, mask_ref, imgs, n_iter_mc, p_size, n_iter_pm, step
     n_images = len(imgs)
     estimated_masks = np.zeros((n_images, n, m))
     for i in range(n_images):
-<<<<<<< HEAD
-        print("Mask estimation for ",i)
-=======
         print(f'Mask estimation image {i+2}')
->>>>>>> a9dc941d7e26ef332782b89203f4a0d81bc55733
         f_monte_carlo = monte_carlo(imgs[i], img_ref, n_iter=n_iter_mc, p_size=p_size, pm_iter=n_iter_pm)
         for j in range(n_iter_mc):
             mask_i = estimate_mask(mask_ref, f_monte_carlo[j,...])
