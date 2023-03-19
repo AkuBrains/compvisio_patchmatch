@@ -9,14 +9,28 @@ config.NUMBA_NUM_THREADS = 3
 
 
 def estimate_mask(mask, f):
-    res = np.zeros(mask.shape)
-    m = np.max(mask)
+    """Propagate the given mask according to the NNF.
+    
+    Parameters
+    ----------
+    mask : array-like
+        Binary mask.
+    f : array-like
+        Nearest-Neighbor Field.
 
+    Returns
+    -------
+    res : array-like
+        Binary mask, result of the propagation.
+    """
+    res = np.zeros(mask.shape)
+    m = np.max(mask) 
     for i in range(f.shape[0]):
         for j in range(f.shape[1]):
             x, y = f[i, j, 0], f[i, j, 1]
             if mask[x, y] == m:
                 res[i, j] = m
+
     return res
 
 
