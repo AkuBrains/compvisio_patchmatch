@@ -1,3 +1,11 @@
+"""
+Implementation of PatchMatch algorithm, found on this github repository :
+https://github.com/MingtaoGuo/PatchMatch
+
+We modified a bit the code to parallelize some parts.
+"""
+
+
 import numpy as np
 from PIL import Image
 from numba import njit
