@@ -1,3 +1,20 @@
+"""
+This module implements the three integration methods we proposed to perform
+object tracking. These methods are
+    - direct integration where the reference is always the first image,
+    - sequential integration where the reference image is updated at each step,
+    and is set to the last processed image,
+    - hybrid integration, which is a mix between direct and sequential
+    integration, where the reference image is updated at every given number
+    of steps.
+
+These methods are applied and compared quantitatively in the three provided
+notebooks.
+
+Authors: Franck UX, Nampoina RAVELOMANANA and Selman SEZGIN
+"""
+
+
 import numpy as np
 from functions import monte_carlo, estimate_mask
 

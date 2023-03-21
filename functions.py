@@ -1,3 +1,11 @@
+"""
+This module contains the functions related the the mask propagation and the
+evaluation of the estimated masks.
+
+Authors: Franck UX, Nampoina RAVELOMANANA and Selman SEZGIN
+"""
+
+
 from numba import njit, prange, set_num_threads, config
 from numba_progress import ProgressBar
 import numpy as np
