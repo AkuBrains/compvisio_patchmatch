@@ -48,7 +48,7 @@ def reconstruction(f, A, B):
 
 
 @njit(nogil=True)
-def initialization(A, B, p_size, random=False):
+def initialization(A, B, p_size, random=True):
     A_h, A_w, _ = A.shape
     B_h, B_w, _ = B.shape
     p = p_size // 2
