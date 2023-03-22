@@ -52,17 +52,8 @@ def get_masks_direct(img_ref, mask_ref, imgs, n_iter_mc, p_size, n_iter_pm, thr=
     n_images = len(imgs) # Number of masks we have to compute
     estimated_masks = np.zeros((n_images, n, m))
     for i in range(n_images):
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-        print("Mask estimation for ",i)
-=======
         print(f'Mask estimation image {i+2}')
-<<<<<<< HEAD
->>>>>>> 782d870 (correct merge problems)
-=======
         # Compute n_iter_mc approximations of the NNF
->>>>>>> e65f2c0 (bear example)
         f_monte_carlo = monte_carlo(imgs[i], img_ref, n_iter=n_iter_mc, p_size=p_size, pm_iter=n_iter_pm)
         # For each NNF, compute the binary mask
         for j in range(n_iter_mc):
@@ -74,19 +65,6 @@ def get_masks_direct(img_ref, mask_ref, imgs, n_iter_mc, p_size, n_iter_pm, thr=
         estimated_masks[i][estimated_masks[i] < thr] = 0
         
     return estimated_masks.astype(np.int32)
-=======
-        print(f"Mask estimation for {name+'-%0*d.bmp'%(3, i+2)}")
-=======
-        print(f'Mask estimation image {i+2}')
->>>>>>> 186755d (Update integration)
-        f_monte_carlo = monte_carlo(imgs[i], img_ref, n_iter=n_iter_mc, p_size=p_size, pm_iter=n_iter_pm)
-        for j in range(n_iter_mc):
-            mask_i = estimate_mask(mask_ref, f_monte_carlo[j])
-            estimated_masks[i] += mask_i
-        estimated_masks[i] /= n_iter_mc
-        estimated_masks[i][estimated_masks[i] < thr] = 0
-    return estimated_masks
->>>>>>> e91941d (Hyprid integration added)
 
 
 def get_masks_sequential(img_ref, mask_ref, imgs, n_iter_mc, p_size, n_iter_pm, thr=100):
@@ -125,23 +103,8 @@ def get_masks_sequential(img_ref, mask_ref, imgs, n_iter_mc, p_size, n_iter_pm, 
     # estimated_masks[i] is the approximated mask if image imgs[i]
     estimated_masks = np.zeros((n_images, n, m))
     for i in range(n_images):
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-        print("Mask estimation for ",i)
-=======
-        print(f"Mask estimation for {name+'-%0*d.bmp'%(3, i+2)}")
->>>>>>> e91941d (Hyprid integration added)
-=======
         print(f'Mask estimation image {i+2}')
->>>>>>> 186755d (Update integration)
-=======
-        print(f'Mask estimation image {i+2}')
-<<<<<<< HEAD
->>>>>>> 782d870 (correct merge problems)
-=======
         # Compute n_iter_mc approximations of the NNF
->>>>>>> e65f2c0 (bear example)
         f_monte_carlo = monte_carlo(imgs[i], img_ref, n_iter=n_iter_mc, p_size=p_size, pm_iter=n_iter_pm)
         # For each NNF, compute the binary mask
         for j in range(n_iter_mc):
@@ -154,15 +117,7 @@ def get_masks_sequential(img_ref, mask_ref, imgs, n_iter_mc, p_size, n_iter_pm, 
         # Update the reference image and mask
         img_ref = np.copy(imgs[i])
         mask_ref = np.copy(estimated_masks[i])
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-
->>>>>>> e65f2c0 (bear example)
     return estimated_masks.astype(np.int32)
-=======
-    return estimated_masks
->>>>>>> e91941d (Hyprid integration added)
 
 
 def get_masks_hybrid(img_ref, mask_ref, imgs, n_iter_mc, p_size, n_iter_pm, step=5, thr=100):
@@ -205,23 +160,8 @@ def get_masks_hybrid(img_ref, mask_ref, imgs, n_iter_mc, p_size, n_iter_pm, step
     # estimated_masks[i] is the approximated mask if image imgs[i]
     estimated_masks = np.zeros((n_images, n, m))
     for i in range(n_images):
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-        print("Mask estimation for ",i)
-=======
-        print(f"Mask estimation for {name+'-%0*d.bmp'%(3, i+2)}")
->>>>>>> e91941d (Hyprid integration added)
-=======
         print(f'Mask estimation image {i+2}')
->>>>>>> 186755d (Update integration)
-=======
-        print(f'Mask estimation image {i+2}')
-<<<<<<< HEAD
->>>>>>> 782d870 (correct merge problems)
-=======
         # Compute n_iter_mc approximations of the NNF
->>>>>>> e65f2c0 (bear example)
         f_monte_carlo = monte_carlo(imgs[i], img_ref, n_iter=n_iter_mc, p_size=p_size, pm_iter=n_iter_pm)
         # For each NNF, compute the binary mask
         for j in range(n_iter_mc):
@@ -231,20 +171,9 @@ def get_masks_hybrid(img_ref, mask_ref, imgs, n_iter_mc, p_size, n_iter_pm, step
         estimated_masks[i] /= n_iter_mc
         # Apply threshold
         estimated_masks[i][estimated_masks[i] < thr] = 0
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-
->>>>>>> e91941d (Hyprid integration added)
-=======
         # Update the reference image and mask every given number of steps
->>>>>>> e65f2c0 (bear example)
         if i%step==0 and i!=0:
             img_ref = np.copy(imgs[i])
             mask_ref = np.copy(estimated_masks[i])
 
-<<<<<<< HEAD
     return estimated_masks.astype(np.int32)
-=======
-    return estimated_masks
->>>>>>> e91941d (Hyprid integration added)

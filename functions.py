@@ -17,21 +17,6 @@ config.NUMBA_NUM_THREADS = 3
 
 
 def estimate_mask(mask, f):
-<<<<<<< HEAD
-    """Propagate the given mask according to the NNF.
-    
-    Parameters
-    ----------
-    mask : array-like
-        Binary mask.
-    f : array-like
-        Nearest-Neighbor Field.
-
-    Returns
-    -------
-    res : array-like
-        Binary mask, result of the propagation.
-=======
     """
     Predict current mask using reference mask, and optical flow from current image to reference image
     Arguments:
@@ -39,7 +24,6 @@ def estimate_mask(mask, f):
         f (ndarray)   : array containing the optical flow
     Returns:
         res (ndarray) : Current predicted mask
->>>>>>> f791f49 (get metrics rhino)
     """
     res = np.zeros(mask.shape)
     m = np.max(mask) 
