@@ -48,7 +48,7 @@ def reconstruction(f, A, B):
 
 
 @njit(nogil=True)
-def initialization(A, B, p_size):
+def initialization(A, B, p_size, random=False):
     A_h, A_w, _ = A.shape
     B_h, B_w, _ = B.shape
     p = p_size // 2
@@ -61,7 +61,12 @@ def initialization(A, B, p_size):
     for i in range(A_h):
         for j in range(A_w):
             a = np.array([i, j])
-            b = np.array([random_B_r[i, j], random_B_c[i, j]], dtype=np.int32)
+            if random:
+                b = np.array([random_B_r[i, j], random_B_c[i, j]], dtype=np.int32)
+            else:
+                I = min(max(p, i), B_h-p)
+                J = min(max(p, i), B_w-p)
+                b = np.array([I, J], dtype=np.int32)
             f[i, j, :] = b
             dist[i, j] = cal_distance(a, b, A_padding, B, p_size)
     return f, dist, A_padding
